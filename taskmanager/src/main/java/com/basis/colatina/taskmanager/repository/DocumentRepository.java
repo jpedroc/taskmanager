@@ -1,4 +1,9 @@
 package com.basis.colatina.taskmanager.repository;
 
-public interface DocumentRepository {
+import com.basis.colatina.taskmanager.domain.Document;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+@Repository
+public interface DocumentRepository extends JpaRepository<Document, Integer> {
 }
