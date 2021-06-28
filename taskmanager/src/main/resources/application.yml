@@ -1,0 +1,11 @@
+spring:
+  jpa:
+    database: POSTGRESQL
+    show-sql: true
+  datasource:
+    url: jdbc:postgresql://localhost:5430/taskmanager
+    username: taskmanager
+    password: taskmanager
+
+  liquibase:
+    change-log: classpath:/config/liquibase/master.xml
