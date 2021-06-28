@@ -1,0 +1,10 @@
+version: '2'
+services:
+  postgresql:
+    image: postgres:11.5-alpine
+    environment:
+      - POSTGRES_USER=taskmanager
+      - POSTGRES_PASSWORD=taskmanager
+      - POSTGRES_DB=taskmanager
+    ports:
+      - 5430:5432
