@@ -21,7 +21,7 @@ public class TaskDTO implements Serializable {
     private LocalDate endDate;
     private Integer statusId;
     private Integer ownerId;
-    List<CommentDTO> commentListDTO;
-    List<DocumentDTO> documentListDTO;
+    List<CommentDTO> comments;
+    List<DocumentDTO> documents;
 
 }
