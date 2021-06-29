@@ -1,0 +1,7 @@
+version: '2'
+services:
+  task-manager-postgresql:
+    extends:
+      file: postgresql.yml
+      service: postgresql
+    container_name: task-manager-postgresql
