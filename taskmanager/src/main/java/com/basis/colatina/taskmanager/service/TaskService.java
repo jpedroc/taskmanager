@@ -1,23 +1,56 @@
 package com.basis.colatina.taskmanager.service;
 
+import com.basis.colatina.taskmanager.domain.Task;
+import com.basis.colatina.taskmanager.repository.TaskRepository;
 import com.basis.colatina.taskmanager.service.dto.TaskDTO;
+import com.basis.colatina.taskmanager.service.exception.BadRequestAlertException;
+import com.basis.colatina.taskmanager.service.mapper.TaskMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
+import java.util.Objects;
 
 @Service
 @Transactional
 @RequiredArgsConstructor
 public class TaskService {
 
+    private final TaskRepository taskRepository;
+    private final TaskMapper taskMapper;
+
     public TaskDTO save(TaskDTO taskDTO) {
-        return null;
+        Task task = taskMapper.toEntity(taskDTO);
+
+        if(task.getExpectedStartDate().isAfter(task.getExpectedEndDate())) {
+            throw new BadRequestAlertException("Invalid expected date! Expected start date cannot be after the expected end date.");
+        }
+
+        if(Objects.nonNull(task.getStartDate()) && Objects.nonNull(task.getEndDate()) && task.getStartDate().isAfter(task.getEndDate())) {
+            throw new BadRequestAlertException("Invalid expected date! Start date cannot be after the end date.");
+        }
+
+        taskRepository.save(task);
+
+        return taskMapper.toDto(task);
     }
 
     public TaskDTO findOne(Integer id) {
-        return null;
+        return taskMapper.toDto(getOne(id));
     }
 
-    public void delete(Integer id) {}
+    public void delete(Integer id) {
+        Task task = getOne(id);
+        taskRepository.delete(task);
+    }
+
+    private Task getOne(Integer id) {
+        return taskRepository.findById(id).orElseThrow(() -> new BadRequestAlertException("Task not found"));
+    }
+
+    public List<TaskDTO> findAll() {
+        return taskMapper.toDto(taskRepository.findAll());
+    }
 
 }

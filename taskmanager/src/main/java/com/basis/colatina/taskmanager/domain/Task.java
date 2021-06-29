@@ -62,6 +62,6 @@ public class Task implements Serializable {
     @OneToMany(mappedBy = "Task", cascade = CascadeType.ALL)
     private List<Comment> comments;
 
-    @OneToMany(mappedBy = "Task", cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = "Task", cascade = CascadeType.ALL)
     private List<Document> documents;
 }
