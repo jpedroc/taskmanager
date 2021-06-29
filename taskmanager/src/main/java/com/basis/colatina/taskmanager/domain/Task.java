@@ -59,9 +59,9 @@ public class Task implements Serializable {
     @JoinColumn(name = "owner_id", nullable = false)
     private Owner owner;
 
-    @OneToMany(mappedBy = "task", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "Task", cascade = CascadeType.ALL)
     private List<Comment> comments;
 
-    @OneToMany(mappedBy = "task", cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = "Task", cascade = CascadeType.PERSIST)
     private List<Document> documents;
 }
