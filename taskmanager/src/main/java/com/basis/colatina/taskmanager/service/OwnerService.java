@@ -29,6 +29,10 @@ public class OwnerService {
         return ownerMapper.toDto(owner);
     }
 
+    public OwnerDTO find() {
+        return ownerMapper.toDto(getOne(1));
+    }
+
     public OwnerDTO findOne(Integer id) {
         return ownerMapper.toDto(getOne(id));
     }

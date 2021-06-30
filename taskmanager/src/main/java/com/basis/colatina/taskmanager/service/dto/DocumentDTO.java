@@ -9,6 +9,7 @@ import java.io.Serializable;
 @Setter
 public class DocumentDTO implements Serializable {
     private Integer id;
+    private String uuid;
     private String title;
     private String file;
     private String length;
