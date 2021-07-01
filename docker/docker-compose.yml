@@ -5,3 +5,8 @@ services:
       file: postgresql.yml
       service: postgresql
     container_name: task-manager-postgresql
+  task-manager-minio:
+    extends:
+      file: minio.yml
+      service: minio
+    container_name: task-manager-minio
