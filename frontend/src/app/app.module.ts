@@ -18,7 +18,7 @@ import {BlockUIModule} from 'ng-block-ui';
         AppComponent,
         AppTopbarComponent,
         AppFooterComponent,
-        DiarioErrosComponent
+        DiarioErrosComponent,
     ],
     imports: [
         BlockUIModule.forRoot({
