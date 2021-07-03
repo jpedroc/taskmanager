@@ -10,3 +10,8 @@ services:
       file: minio.yml
       service: minio
     container_name: task-manager-minio
+  task-manager-elasticsearch:
+    extends:
+      file: elasticsearch.yml
+      service: elasticsearch
+    container_name: task-manager-elasticsearch

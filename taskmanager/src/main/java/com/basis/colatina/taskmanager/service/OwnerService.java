@@ -3,9 +3,11 @@ package com.basis.colatina.taskmanager.service;
 import com.basis.colatina.taskmanager.domain.Owner;
 import com.basis.colatina.taskmanager.repository.OwnerRepository;
 import com.basis.colatina.taskmanager.service.dto.OwnerDTO;
+import com.basis.colatina.taskmanager.service.event.OwnerEvent;
 import com.basis.colatina.taskmanager.service.exception.BadRequestAlertException;
 import com.basis.colatina.taskmanager.service.mapper.OwnerMapper;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,6 +20,7 @@ public class OwnerService {
 
     private final OwnerRepository ownerRepository;
     private final OwnerMapper ownerMapper;
+    private final ApplicationEventPublisher applicationEventPublisher;
 
     public OwnerDTO save(OwnerDTO ownerDTO) {
         if (ownerDTO.getBirthDate().isAfter(LocalDate.now())) {
@@ -25,6 +28,7 @@ public class OwnerService {
         }
 
         Owner owner = ownerRepository.save(ownerMapper.toEntity(ownerDTO));
+        applicationEventPublisher.publishEvent(new OwnerEvent(owner.getId()));
 
         return ownerMapper.toDto(owner);
     }

@@ -3,9 +3,11 @@ package com.basis.colatina.taskmanager.service;
 import com.basis.colatina.taskmanager.domain.Task;
 import com.basis.colatina.taskmanager.repository.TaskRepository;
 import com.basis.colatina.taskmanager.service.dto.TaskDTO;
+import com.basis.colatina.taskmanager.service.event.TaskEvent;
 import com.basis.colatina.taskmanager.service.exception.BadRequestAlertException;
 import com.basis.colatina.taskmanager.service.mapper.TaskMapper;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,6 +21,7 @@ public class TaskService {
 
     private final TaskRepository taskRepository;
     private final TaskMapper taskMapper;
+    private final ApplicationEventPublisher applicationEventPublisher;
 
     public TaskDTO save(TaskDTO taskDTO) {
         Task task = taskMapper.toEntity(taskDTO);
@@ -32,7 +35,7 @@ public class TaskService {
         }
 
         taskRepository.save(task);
-
+        this.applicationEventPublisher.publishEvent(new TaskEvent(task.getId()));
         return taskMapper.toDto(task);
     }
 

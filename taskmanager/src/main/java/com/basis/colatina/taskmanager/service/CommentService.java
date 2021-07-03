@@ -6,12 +6,14 @@ import com.basis.colatina.taskmanager.repository.CommentRepository;
 import com.basis.colatina.taskmanager.repository.OwnerRepository;
 import com.basis.colatina.taskmanager.service.dto.CommentDTO;
 import com.basis.colatina.taskmanager.service.dto.OwnerDTO;
+import com.basis.colatina.taskmanager.service.event.CommentEvent;
 import com.basis.colatina.taskmanager.service.exception.BadRequestAlertException;
 import com.basis.colatina.taskmanager.service.mapper.CommentMapper;
 import com.basis.colatina.taskmanager.service.mapper.OwnerMapper;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.bouncycastle.util.Strings;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -25,6 +27,7 @@ public class CommentService {
 
     private final CommentRepository commentRepository;
     private final CommentMapper commentMapper;
+    private final ApplicationEventPublisher applicationEventPublisher;
 
     public CommentDTO create(CommentDTO commentDTO){
         if(StringUtils.isBlank(commentDTO.getDescription())) {
@@ -32,7 +35,7 @@ public class CommentService {
         }
 
         Comment save = commentRepository.save(commentMapper.toEntity(commentDTO));
-
+        applicationEventPublisher.publishEvent(new CommentEvent(save.getId()));
         return commentMapper.toDto(save);
     }
 
