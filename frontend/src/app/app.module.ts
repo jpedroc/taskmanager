@@ -12,6 +12,7 @@ import {BreadcrumbModule, ErrorStackModule, MenuModule, PageNotificationModule} 
 import {ErrorModule, VersionTagModule} from '@nuvem/angular-base';
 import {DiarioErrosComponent} from './components/diario-erros/diario-erros.component';
 import {BlockUIModule} from 'ng-block-ui';
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 
 @NgModule({
     declarations: [
@@ -34,7 +35,9 @@ import {BlockUIModule} from 'ng-block-ui';
         ErrorStackModule,
         ErrorModule,
         VersionTagModule,
-        MenuModule
+        MenuModule,
+        FormsModule,
+        ReactiveFormsModule
     ],
     providers: [
         { provide: LocationStrategy, useClass: HashLocationStrategy }
