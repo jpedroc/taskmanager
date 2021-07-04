@@ -1,7 +1,7 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {BaseEntityForm} from "../../../shared/base-entity-form";
 import {OwnerModel} from "../../../models/owner.model";
-import {ConfirmationService} from "primeng";
+import {ConfirmationService, DialogService} from "primeng";
 import {PageNotificationService} from "@nuvem/primeng-components";
 import {FormBuilder, FormGroup} from "@angular/forms";
 import {ModalService} from "../../../shared/modal.service";
@@ -10,7 +10,8 @@ import {OwnerService} from "../../../shared/services/owner.service";
 @Component({
     selector: 'app-owner-form',
     templateUrl: './owner-form.component.html',
-    styleUrls: ['./owner-form.component.css']
+    styleUrls: ['./owner-form.component.css'],
+    providers: [DialogService, ModalService]
 })
 export class OwnerFormComponent extends BaseEntityForm<OwnerModel> implements OnInit {
 
@@ -24,18 +25,16 @@ export class OwnerFormComponent extends BaseEntityForm<OwnerModel> implements On
 
     SERVICE = this.ownerService;
 
-    @Input() modal: boolean = false;
-    @Output() done = new EventEmitter();
-
     ngOnInit(): void {
-        super.ngOnInit()
+        super.ngOnInit();
     }
 
     buildReactiveForm(): FormGroup {
-        return undefined;
+        return null;
     }
 
     onLoadEntity(entity: OwnerModel) {
+        this.form.patchValue(entity);
     }
 
     sendForm(entity: OwnerModel) {
