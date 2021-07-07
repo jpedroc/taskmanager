@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Service
 @Transactional
@@ -33,8 +34,8 @@ public class OwnerService {
         return ownerMapper.toDto(owner);
     }
 
-    public OwnerDTO find() {
-        return ownerMapper.toDto(getOne(1));
+    public List<OwnerDTO> find() {
+        return ownerMapper.toDto(ownerRepository.findAll());
     }
 
     public OwnerDTO findOne(Integer id) {

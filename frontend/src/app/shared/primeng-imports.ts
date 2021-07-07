@@ -61,6 +61,7 @@ import { ToolbarModule } from 'primeng/toolbar';
 import { TooltipModule } from 'primeng/tooltip';
 import { TreeModule } from 'primeng/tree';
 import { TreeTableModule } from 'primeng/treetable';
+import {FormBuilder, FormsModule} from "@angular/forms";
 
 export const PRIMENG_IMPORTS = [
     AccordionModule,
@@ -81,6 +82,7 @@ export const PRIMENG_IMPORTS = [
     DialogModule,
     DropdownModule,
     EditorModule,
+    FormsModule,
     FieldsetModule,
     FileUploadModule,
     GalleriaModule,

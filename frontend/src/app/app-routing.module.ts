@@ -1,17 +1,15 @@
-import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
-import { DiarioErrosComponent } from './components/diario-erros/diario-erros.component';
-import { LoginSuccessComponent } from '@nuvem/angular-base';
+import {NgModule} from '@angular/core';
+import {RouterModule, Routes} from '@angular/router';
 
 const routes: Routes = [
-    { path: 'diario-erros', component: DiarioErrosComponent, data: { breadcrumb: 'Diário de Erros'} },
-    { path: 'login-success', component: LoginSuccessComponent }
+    {
+        path: 'owners',
+        loadChildren: './modules/owner/owner.module#OwnerModule'
+    },
 ];
 
 @NgModule({
-  imports: [
-    RouterModule.forRoot(routes)
-  ],
-  exports: [RouterModule]
+    imports: [RouterModule.forRoot(routes, { scrollPositionRestoration: 'enabled' })],
+    exports: [RouterModule]
 })
 export class AppRoutingModule { }
