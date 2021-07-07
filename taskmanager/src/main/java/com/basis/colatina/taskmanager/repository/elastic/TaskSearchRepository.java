@@ -2,7 +2,11 @@ package com.basis.colatina.taskmanager.repository.elastic;
 
 
 import com.basis.colatina.taskmanager.domain.elastic.TaskDocument;
-import org.springframework.data.elasticsearch.repository.ElasticsearchRepository;
 
-public interface TaskSearchRepository extends ElasticsearchRepository<TaskDocument, Integer> {
+public interface TaskSearchRepository extends ElasticEntity<TaskDocument, Integer> {
+
+    @Override
+    default Class<TaskDocument> getEntityClass() {
+        return TaskDocument.class;
+    }
 }

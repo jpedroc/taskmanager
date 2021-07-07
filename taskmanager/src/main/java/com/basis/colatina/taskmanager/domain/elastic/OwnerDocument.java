@@ -15,7 +15,7 @@ import java.time.format.DateTimeFormatter;
 
 @Getter
 @Setter
-@Document(indexName = "tm-owner")
+@Document(indexName = "tm-owner", type = "owner")
 @NoArgsConstructor
 public class OwnerDocument extends BaseDocument{
 
