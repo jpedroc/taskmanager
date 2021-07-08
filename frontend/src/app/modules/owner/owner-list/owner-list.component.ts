@@ -30,13 +30,6 @@ export class OwnerListComponent implements OnInit {
     @ViewChild(Table) table: Table;
 
     ngOnInit(): void {
-        this.refreshTable();
-    }
-
-    refreshTable() {
-        // this.ownerService.getAll().subscribe(res => {
-        //     this.ownerList = res;
-        // })
     }
 
     getSelectedOnwer() {
@@ -53,15 +46,15 @@ export class OwnerListComponent implements OnInit {
         this.getSelectedOnwer();
     }
 
-    openDialog(){
-        const form = this.modalService.openModal(OwnerFormModalComponent, {}, {editing: true, entityId: null});
-        form.onClose
-            .subscribe(res => {
-                if (res) {
-                    this.refreshTable();
-                }
-            });
-    }
+    // openDialog(){
+    //     const form = this.modalService.openModal(OwnerFormModalComponent, {}, {editing: true, entityId: null});
+    //     form.onClose
+    //         .subscribe(res => {
+    //             if (res) {
+    //                 this.refreshTable();
+    //             }
+    //         });
+    // }
 
     search() {
         this.ownerService.search(this.table, {query: this.filter.query}).subscribe(res => {

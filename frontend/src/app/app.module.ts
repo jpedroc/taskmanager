@@ -13,6 +13,7 @@ import {ErrorModule, VersionTagModule} from '@nuvem/angular-base';
 import {DiarioErrosComponent} from './components/diario-erros/diario-erros.component';
 import {BlockUIModule} from 'ng-block-ui';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import { TaskListComponent } from './modules/task/task-list/task-list.component';
 
 @NgModule({
     declarations: [
@@ -20,6 +21,7 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
         AppTopbarComponent,
         AppFooterComponent,
         DiarioErrosComponent,
+        TaskListComponent,
     ],
     imports: [
         BlockUIModule.forRoot({

@@ -4,7 +4,7 @@ import {RouterModule, Routes} from '@angular/router';
 const routes: Routes = [
     {
         path: 'owners',
-        loadChildren: './modules/owner/owner.module#OwnerModule'
+        loadChildren: './modules/owner/owner.module#TaskModule'
     },
 ];
 
