@@ -1,4 +1,3 @@
 export class DefaultFilter {
-    query?: string;
-    status ?= false;
+    query?: string = '';
 }

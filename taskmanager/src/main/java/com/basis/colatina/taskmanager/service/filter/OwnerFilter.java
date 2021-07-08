@@ -7,20 +7,19 @@ import org.elasticsearch.index.query.QueryBuilders;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Setter
-public class TaskFilter extends DefaultFilter implements BaseFilter, Serializable {
+public class OwnerFilter extends DefaultFilter implements BaseFilter, Serializable {
     @Override
     public BoolQueryBuilder getFilter() {
         BoolQueryBuilder queryBuilder = QueryBuilders.boolQuery();
 
-        addMustTermQuery(queryBuilder, query, "expectedStartDate");
-        addMustTermQuery(queryBuilder, query, "expectedEndDate");
-        addMustTermQuery(queryBuilder, query, "startDate");
-        addMustTermQuery(queryBuilder, query, "endDate");
+        List<String> fields = new ArrayList<>();
+        filterFields(fields, query, queryBuilder,"name", "email", "status");
 
-//        filterFields(new ArrayList<>(), query, );
+        addShouldTermQuery(queryBuilder, "birthDate", query);
 
         return queryBuilder;
     }

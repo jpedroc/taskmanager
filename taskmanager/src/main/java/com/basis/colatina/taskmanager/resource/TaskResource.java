@@ -2,6 +2,8 @@ package com.basis.colatina.taskmanager.resource;
 
 import com.basis.colatina.taskmanager.service.TaskService;
 import com.basis.colatina.taskmanager.service.dto.TaskDTO;
+import com.basis.colatina.taskmanager.service.dto.listing.TaskListDTO;
+import com.basis.colatina.taskmanager.service.filter.TaskFilter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -63,8 +65,8 @@ public class TaskResource {
     }
 
     @GetMapping("/search")
-    public ResponseEntity<Page<TaskDTO>> search(Pageable pageable) {
-        Page<TaskDTO> tasks = taskService.search();
+    public ResponseEntity<Page<TaskListDTO>> search(@RequestBody TaskFilter filter, Pageable pageable) {
+        Page<TaskListDTO> tasks = taskService.search(filter, pageable);
         log.info("Todas as tasks foram listadas!");
         return new ResponseEntity<>(tasks, HttpStatus.OK);
     }

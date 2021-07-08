@@ -13,10 +13,11 @@ export class OwnerUtil {
         },
         {
             field: 'birthDate',
-            header: 'Birth Date'
+            header: 'Birth Date',
+            sortField: 'birthDate.sort'
         },
         {
-            field: 'statusId',
+            field: 'status',
             header: 'Status'
         }
     ]

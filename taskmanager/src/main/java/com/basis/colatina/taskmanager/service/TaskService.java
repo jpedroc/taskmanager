@@ -68,7 +68,6 @@ public class TaskService {
     public Page<TaskListDTO> search(TaskFilter filter, Pageable pageable) {
         Page<TaskDocument> documents = taskSearchRepository.search(filter.getFilter(), pageable);
 
-        return taskListMapper.toDto(documents);
-
+        return documents.map(taskListMapper::toDto);
     }
 }

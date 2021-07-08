@@ -7,14 +7,21 @@
         </p-button>
     </div>
 
-    <p-table [value]="ownerList" [lazy]="true" (onLazyLoad)="refreshTable()"
-             [columns]="columns"
-             scrollHeight="50vh"
+    <div class="ui-g-12 ui-md-4">
+        <div class="ui-inputgroup">
+            <button (click)="search()" pButton type="button" label="Search"></button>
+            <input type="text" [(ngModel)]="filter.query" pInputText placeholder="Keyword">
+        </div>
+    </div>
+
+    <p-table [value]="ownerList.content" [lazy]="true" (onLazyLoad)="search()"
+             [columns]="columns" [rows]="20"
+             scrollHeight="50vh" [lazy]="true" [paginator]="true"
              [responsive]="true" [scrollable]="true">
         <ng-template pTemplate="header" let-columns>
             <tr>
                 <th style="width: 5ch"></th>
-                <th *ngFor="let col of columns" [pSortableColumn]="col.field">
+                <th *ngFor="let col of columns" [pSortableColumn]="col.sortField || col.field">
                     {{col.header}}
                     <p-sortIcon [field]="col.field" ariaLabel="Activate to sort"
                                 ariaLabelDesc="Activate to sort in descending order"
