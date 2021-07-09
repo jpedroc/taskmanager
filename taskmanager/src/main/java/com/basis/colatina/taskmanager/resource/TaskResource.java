@@ -64,7 +64,7 @@ public class TaskResource {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @GetMapping("/search")
+    @PostMapping("/search")
     public ResponseEntity<Page<TaskListDTO>> search(@RequestBody TaskFilter filter, Pageable pageable) {
         Page<TaskListDTO> tasks = taskService.search(filter, pageable);
         log.info("Todas as tasks foram listadas!");
