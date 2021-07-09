@@ -1,13 +1,20 @@
 package com.basis.colatina.taskmanager.service;
 
 import com.basis.colatina.taskmanager.domain.Task;
+import com.basis.colatina.taskmanager.domain.elastic.TaskDocument;
 import com.basis.colatina.taskmanager.repository.TaskRepository;
+import com.basis.colatina.taskmanager.repository.elastic.TaskSearchRepository;
 import com.basis.colatina.taskmanager.service.dto.TaskDTO;
+import com.basis.colatina.taskmanager.service.dto.listing.TaskListDTO;
 import com.basis.colatina.taskmanager.service.event.TaskEvent;
 import com.basis.colatina.taskmanager.service.exception.BadRequestAlertException;
+import com.basis.colatina.taskmanager.service.filter.TaskFilter;
+import com.basis.colatina.taskmanager.service.mapper.TaskListMapper;
 import com.basis.colatina.taskmanager.service.mapper.TaskMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,7 +28,9 @@ public class TaskService {
 
     private final TaskRepository taskRepository;
     private final TaskMapper taskMapper;
+    private final TaskListMapper taskListMapper;
     private final ApplicationEventPublisher applicationEventPublisher;
+    private final TaskSearchRepository taskSearchRepository;
 
     public TaskDTO save(TaskDTO taskDTO) {
         Task task = taskMapper.toEntity(taskDTO);
@@ -56,4 +65,9 @@ public class TaskService {
         return taskMapper.toDto(taskRepository.findAll());
     }
 
+    public Page<TaskListDTO> search(TaskFilter filter, Pageable pageable) {
+        Page<TaskDocument> documents = taskSearchRepository.search(filter.getFilter(), pageable);
+
+        return documents.map(taskListMapper::toDto);
+    }
 }

@@ -6,6 +6,10 @@ const routes: Routes = [
         path: 'owners',
         loadChildren: './modules/owner/owner.module#OwnerModule'
     },
+    {
+        path: 'tasks',
+        loadChildren: './modules/task/task.module#TaskModule'
+    },
 ];
 
 @NgModule({

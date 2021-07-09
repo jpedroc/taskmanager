@@ -15,7 +15,7 @@ import java.time.format.DateTimeFormatter;
 
 @Getter
 @Setter
-@Document(indexName = "tm-task")
+@Document(indexName = "tm-task", type = "task")
 @NoArgsConstructor
 public class TaskDocument extends BaseDocument {
 

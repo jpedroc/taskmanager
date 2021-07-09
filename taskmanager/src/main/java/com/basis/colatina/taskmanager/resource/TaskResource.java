@@ -2,8 +2,12 @@ package com.basis.colatina.taskmanager.resource;
 
 import com.basis.colatina.taskmanager.service.TaskService;
 import com.basis.colatina.taskmanager.service.dto.TaskDTO;
+import com.basis.colatina.taskmanager.service.dto.listing.TaskListDTO;
+import com.basis.colatina.taskmanager.service.filter.TaskFilter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -58,5 +62,12 @@ public class TaskResource {
         taskService.delete(id);
         log.info("Task excluida: {}", id);
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @PostMapping("/search")
+    public ResponseEntity<Page<TaskListDTO>> search(@RequestBody TaskFilter filter, Pageable pageable) {
+        Page<TaskListDTO> tasks = taskService.search(filter, pageable);
+        log.info("Todas as tasks foram listadas!");
+        return new ResponseEntity<>(tasks, HttpStatus.OK);
     }
 }

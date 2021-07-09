@@ -1,6 +1,5 @@
 package com.basis.colatina.taskmanager.domain.elastic;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -12,7 +11,7 @@ import org.springframework.data.elasticsearch.annotations.MultiField;
 
 @Getter
 @Setter
-@Document(indexName = "tm-comment")
+@Document(indexName = "tm-comment", type = "comment")
 @NoArgsConstructor
 public class CommentDocument extends BaseDocument{
 

@@ -1,11 +1,13 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {OwnerService} from "../../../shared/services/owner.service";
 import {OwnerUtil} from "../util/owner.util";
 import {OwnerModel} from "../../../models/owner.model";
 import {PageNotificationService} from "@nuvem/primeng-components";
-import {DynamicDialogRef} from "primeng";
+import {DynamicDialogRef, Table} from "primeng";
 import {ModalService} from "../../../shared/modal.service";
 import {OwnerFormModalComponent} from "../owner-form/owner-form-modal.component";
+import {DefaultFilter} from "../../../shared/models/default-filter";
+import {Page} from "../../../shared/page";
 
 @Component({
     selector: 'app-owner-list',
@@ -21,17 +23,13 @@ export class OwnerListComponent implements OnInit {
     ) {
     }
 
-    ownerList = [];
+    ownerList = new Page<any>();
     columns = OwnerUtil.DEFAULT_COLUMNS;
+    filter: DefaultFilter = new DefaultFilter();
+
+    @ViewChild(Table) table: Table;
 
     ngOnInit(): void {
-        this.refreshTable();
-    }
-
-    refreshTable() {
-        this.ownerService.getAll().subscribe(res => {
-            this.ownerList = res;
-        })
     }
 
     getSelectedOnwer() {
@@ -48,14 +46,20 @@ export class OwnerListComponent implements OnInit {
         this.getSelectedOnwer();
     }
 
-    openDialog(){
-        const form = this.modalService.openModal(OwnerFormModalComponent, {}, {editing: true, entityId: null});
-        form.onClose
-            .subscribe(res => {
-                if (res) {
-                    this.refreshTable();
-                }
-            });
+    // openDialog(){
+    //     const form = this.modalService.openModal(OwnerFormModalComponent, {}, {editing: true, entityId: null});
+    //     form.onClose
+    //         .subscribe(res => {
+    //             if (res) {
+    //                 this.refreshTable();
+    //             }
+    //         });
+    // }
+
+    search() {
+        this.ownerService.search(this.table, {query: this.filter.query}).subscribe(res => {
+            this.ownerList = res;
+        });
     }
 
 }
